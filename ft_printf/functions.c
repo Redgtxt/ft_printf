@@ -1,27 +1,45 @@
 #include "ft_printf.h"
 
-void ft_putnbr_fd(int n,int fd)
+
+
+int printbase(long nbr, int base)
 {
+    int count;
+    char *symbols;
 
-    if(n < 0)
+    symbols = "0123456789abcdef";
+
+
+    if(nbr < 0)
     {
-        if(n == -2147483648)
-        {
-            ft_putstr_fd("-2147483648", fd);
-            return;
-        }
-
-        ft_putchar_fd('-',fd);
-        n *= -1;
+        write(1,"-",1);
+        return  printbase(-nbr,base) + 1;//+1 por causa do -
     }
-
-    if(n > 9)
+    else if(nbr < base)
     {
-        ft_putnbr_fd(n / 10,fd);
-        ft_putnbr_fd(n % 10,fd);
-
-    }else
-        ft_putchar_fd(n + '0',fd);
-
+          return ft_putchar(symbols[nbr]);
+    }else{
+        count = printbase(nbr / base,base);
+        return count + printbase(nbr % base,base);
+    }
 }
+int printbaseupper(long nbr, int base)
+{
+    int count;
+    char *symbols16;
 
+    symbols16 = "0123456789ABCDEF";
+
+    if(nbr < 0)
+    {
+        write(1,"-",1);
+        return  printbaseupper(-nbr,base) + 1;//+1 por causa do -
+    }
+    else if(nbr < base)
+    {
+          return ft_putchar(symbols16[nbr]);
+    }else{
+        count = printbaseupper(nbr / base,base);
+        return count + printbaseupper(nbr % base,base);
+    }
+}

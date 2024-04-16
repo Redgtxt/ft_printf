@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-SRCS = ft_printf.c ft_putchar_fd.c ft_putstr_fd.c functions.c
+SRCS = ft_printf.c ft_putchar.c ft_putstr.c functions.c
 OBJS = $(SRCS:.c=.o)
 TARGET = ft_printf
 

@@ -2,24 +2,36 @@
 
 int	ft_conversions(const char *format, va_list args)
 {
+	int count;
+
+	count = 0;
 	if (*format == 'c')
-		ft_putchar_fd(va_arg(args, int), 1);
+		count += ft_putchar(va_arg(args, int));
 	else if (*format == 's')
-		ft_putstr_fd(va_arg(args, char *),1);
+		count += ft_putstr(va_arg(args, char *));
 	else if(*format == 'p')
 		return 0;
 	else if(*format == 'd' || *format == 'i')
-		ft_putnbr_fd(va_arg(args,int),1);
+		printbase(va_arg(args,int),10);
 	else if(*format == 'u')
 		return 1;
+	else if(*format == 'x')
+		count +=	printbase(va_arg(args,unsigned int),16);
+	else if(*format == 'X')
+		count +=	printbaseupper(va_arg(args,unsigned int),16);
+	else if(*format == '%')
+		count += putchar('%');
+
 return 0;
 }
 
  int ft_printf(const char *str, ...)
- {
+{
 	int i;
 	va_list args;
+	int count;
 
+	count = 0;
 	i = 0;
 	va_start(args,str);
 	while (str[i])
@@ -27,30 +39,33 @@ return 0;
 		if(str[i] == '%')
 		{
 			i++;
-			// Pass the conversion specifier to ft_conversions
-			ft_conversions(&str[i], args);
+			count += ft_conversions(&str[i], args);
 		}else{
-			write(1,&str[i],1);
+			 count += write(1,&str[i],1);
 		}
 		i++;
 	}
 	va_end(args);
-	return(0);
+	return count;
  }
 
 int	main(void)
 {
-	char	c;
-	char	f;
-	char	nome[] = "Txt";
-	int num = -10;
-	int numOct = 42;
+	// char	c;
+	// char	f;
+	// char	nome[] = "Txt";
+	// int num = -10;
+	// int numOct = 42;
 
-	c = 'v';
-	f = 'f';
-	
-	printf("\nOriginal: %c %c %s %d %i \n", c, f, nome,num,numOct);
-	ft_printf("\nMeu: %c %c %s %d %i \n", c, f, nome,num,numOct);
-	printf("Bom dia darling 45353\n");
-	ft_printf("Bom dia darling 45353\n");
+	// c = 'v';
+	// f = 'f';
+
+	// printf("\nOriginal: %c %c %s %d %i \n", c, f, nome,num,numOct);
+	// ft_printf("\nMeu: %c %c %s %d %i \n", c, f, nome,num,numOct);
+
+	ft_printf("\n%%\n");
+	printf("\nTrue:%u\n",-19);
+
+
+
 }

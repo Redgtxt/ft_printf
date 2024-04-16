@@ -1,19 +1,16 @@
 #include "ft_printf.h"
 
-void ft_putstr_fd(char *s,int fd)
+int ft_putstr(char *s)
 {
     int i;
-
-    if(!s)
-        return;
-
+    
     i = 0;
     while(s[i] !='\0')
     {
-        write(fd,&s[i],1);
+        write(1,&s[i],1);
         i++;
     }
-
+    return i;
 }
 
 /*
