@@ -10,15 +10,15 @@ int	ft_conversions(const char *format, va_list args)
 	else if (*format == 's')
 		count += ft_putstr(va_arg(args, char *));
 	else if(*format == 'p')
-		return 0;
+		count += ft_putptr_base(va_arg(args,unsigned long),"0123456789abcdef",0);
 	else if(*format == 'd' || *format == 'i')
-		printbase(va_arg(args,int),10);
+		count += printbase(va_arg(args,int),10,"0123456789");
 	else if(*format == 'u')
-		return 1;
+		count += printbase(va_arg(args,unsigned int),10,"0123456789");
 	else if(*format == 'x')
-		count +=	printbase(va_arg(args,unsigned int),16);
+		count +=	printbase(va_arg(args,unsigned int),16,"0123456789abcdef");
 	else if(*format == 'X')
-		count +=	printbaseupper(va_arg(args,unsigned int),16);
+		count +=	printbase(va_arg(args,unsigned int),16,"0123456789ABCDEF");
 	else if(*format == '%')
 		count += putchar('%');
 
@@ -55,7 +55,9 @@ int	main(void)
 	// char	f;
 	// char	nome[] = "Txt";
 	// int num = -10;
-	// int numOct = 42;
+	 int numOct = 42;
+	 int *endereco = &numOct;
+	 int size;
 
 	// c = 'v';
 	// f = 'f';
@@ -63,9 +65,9 @@ int	main(void)
 	// printf("\nOriginal: %c %c %s %d %i \n", c, f, nome,num,numOct);
 	// ft_printf("\nMeu: %c %c %s %d %i \n", c, f, nome,num,numOct);
 
-	ft_printf("\n%%\n");
-	printf("\nTrue:%u\n",-19);
-
+	size = ft_printf("%p",endereco);
+	printf("\nTrue:%p \n",endereco);
+	ft_printf("\nO size do meu printf e: %d \n",size);
 
 
 }
