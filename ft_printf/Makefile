@@ -1,24 +1,20 @@
-CC = gcc
+CC = cc
 CFLAGS = -Wall -Wextra -Werror
-SRCS = ft_printf.c ft_putchar.c ft_putstr.c functions.c ft_putptr_base.c
+SRCS = ft_printf.c ft_putchar.c ft_putstr.c functions.c ft_putptr_base.c 
 OBJS = $(SRCS:.c=.o)
-TARGET = ft_printf
+NAME = libftprintf.a
+CREATE = ar -rc
+REMOVE = rm -f
 
-all: $(TARGET)
+all: $(NAME)
 
-$(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) -o $@ $^ 
-
-%.o: %.c ft_printf.h
-	$(CC) $(CFLAGS) -c -o $@ $<
+$(NAME): 	$(OBJS) 
+	$(CREATE) $(NAME) $(OBJS)
 
 clean:
 	rm -f $(OBJS)
 
 fclean: clean
-	rm -f $(TARGET)
-
-run: $(TARGET)
-	./$(TARGET)
+	$(REMOVE)	$(NAME)
 
 re: fclean all

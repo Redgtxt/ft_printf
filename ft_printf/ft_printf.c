@@ -22,10 +22,10 @@ int	ft_conversions(const char *format, va_list args)
 	else if(*format == '%')
 		count += putchar('%');
 
-return 0;
+return count;
 }
 
- int ft_printf(const char *str, ...)
+int ft_printf(const char *str, ...)
 {
 	int i;
 	va_list args;
@@ -36,19 +36,24 @@ return 0;
 	va_start(args,str);
 	while (str[i])
 	{
-		if(str[i] == '%')
+		if(str[i] == '%' && str[i+1] != '%')
 		{
 			i++;
 			count += ft_conversions(&str[i], args);
-		}else{
-			 count += write(1,&str[i],1);
 		}
+		else if(str[i] == '%' && str[i+1] == '%')
+		{
+			count += write(1,&str[i],1);
+			i++; // skip the next '%'
+		}
+		else
+			 count += write(1,&str[i],1);
 		i++;
 	}
 	va_end(args);
 	return count;
  }
-
+/*
 int	main(void)
 {
 	// char	c;
@@ -65,9 +70,13 @@ int	main(void)
 	// printf("\nOriginal: %c %c %s %d %i \n", c, f, nome,num,numOct);
 	// ft_printf("\nMeu: %c %c %s %d %i \n", c, f, nome,num,numOct);
 
-	size = ft_printf("%p",endereco);
+	size = ft_printf("Boma dia %d",numOct);
 	printf("\nTrue:%p \n",endereco);
 	ft_printf("\nO size do meu printf e: %d \n",size);
 
+	ft_printf(" %% ");
+	//printf(" %% ");
 
 }
+*/
+
