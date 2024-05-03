@@ -1,22 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hguerrei <hguerrei@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/03 14:42:03 by hguerrei          #+#    #+#             */
+/*   Updated: 2024/05/03 14:42:06 by hguerrei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-int ft_putstr(char *s)
+int	ft_putstr(char *s)
 {
-    int i;
-    
-    i = 0;
-    while(s[i] !='\0')
-    {
-        write(1,&s[i],1);
-        i++;
-    }
-    return i;
-}
+	int	i;
 
-/*
-int main(void)
-{
-	char nome[] = "wd-40";
-	printf("%s",nome);
+	i = 0;
+	if (s == NULL)
+		return (ft_putstr("(null)"));
+	while (s[i] != '\0')
+	{
+		write(1, &s[i], 1);
+		i++;
+	}
+	return (i);
 }
-*/
